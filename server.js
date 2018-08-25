@@ -18,9 +18,9 @@ app.use(passport.initialize());
 
 auth(passport, passportJWT, jwtOptions);
 
-//mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
-//mongoose.connect("mongodb://localhost:27017/todo");
+mongoose.connect("mongodb://localhost:27017/todo");
 
 
 app.use('/', routes);
@@ -33,6 +33,6 @@ app.get('/',function(req,res){
 })
 */
 
-const listener = app.listen(8081,()=>
+const listener = app.listen(3001,()=>
     console.log("Server is listening on "+listener.address().port)
 )

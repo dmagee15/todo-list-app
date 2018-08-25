@@ -5,23 +5,23 @@ import { connect } from 'react-redux';
 import { checkUser } from './actions/auth.js';
 import LoginPage from './components/LoginPage';
 import ListPage from './components/ListPage';
+import LoadingPage from './components/LoadingPage';
 
 class App extends Component {
-  state = {loggedIn: false};
 
   constructor(props){
     super(props);
     const config = {
-      headers: {'Authorization': "bearer " + "3323423f32f32f23f"}
+      headers: {'Authorization': "bearer " + localStorage.getItem("token")}
     };
     this.props.dispatch(checkUser(config));
   }
   componentDidMount() {
-    
   }
 
   render() {
-    let display = (this.state.loggedIn) ? <ListPage /> : <LoginPage />;
+  let display = ((localStorage.getItem("user")) ? <ListPage /> : <LoginPage />);
+
     return (
       <div className="App">
         { display }
@@ -32,7 +32,10 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    tasks: state.tasks,
+    loggedIn: state.loggedIn,
+    loaded: state.loaded
   }
 }
 

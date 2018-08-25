@@ -1,0 +1,206 @@
+*{
+    box-sizing: inherit;
+}
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.frontpageBackground{
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to bottom right, rgb(185, 210, 255), white);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.emptySpaceFrontpage{
+    flex-grow: 1;
+    width: 100%;
+}
+.emptySpaceFrontpageModal{
+    flex-grow: 1;
+    width: 100%;
+}
+.loginmodal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    border: 1px solid black;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 3px 3px 4px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.titleSection{
+    min-height: 75px;
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    border-radius: 5px 5px 0px 0px;
+}
+.titleSection h1{
+    display: inline-block;
+    font-family: Verdana;
+    font-size: 40px;
+    margin: 0;
+    padding: 10px 0px 0px 0px;
+    color: white;
+}
+.loginsignup{
+    width: 100%;
+    height: 50px;
+    background-color: lightblue;
+    overflow: hidden;
+}
+.loginFormButton{
+    display:inline-block;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 100%;
+    background-color: lightblue;
+    font-size: 20px;
+    font-family: Arial Black;
+    color: white;
+}
+.signupFormButton{
+    display:inline-block;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 100%;
+    background-color: lightblue;
+    font-size: 20px;
+    font-family: Arial Black;
+    color: white;
+}
+.active{
+    background-color: rgb(105, 204, 236);
+}
+input{
+    padding: 5px 0 5px 10px;
+	margin: 20px 0px 0px 0px;
+	width: 70%;
+	border: 1px solid gray;
+	border-radius: 2px;
+	font-size: 15px;
+    display: inline-block;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: gray;
+    opacity: 1; /* Firefox */
+    font-family: Arial;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+    font-family: Arial;
+    font-size: 20px;
+
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+    font-family: Arial;
+    font-size: 20px;
+}
+.loginButton{
+    background-color: lightgreen;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px 0px 30px 0px;
+    border: none;
+    box-shadow: 0px 3px 10px rgb(0,0,0,.3);
+}
+.continueButton{
+    background-color: lightgray;
+    color: white;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0px 0px 30px 0px;
+    box-shadow: 0px 3px 10px rgb(0,0,0,.3);
+}
+.frontpageFooter{
+    display: inline-block;
+    height: 50px;
+    background-color: black;
+    width: 100%;
+    flex-shrink: 0;
+}
+.frontpageFooter p{
+    color:white;
+}
+.modalFooter{
+    height: 0;
+    width: 100%;
+    background-color: black;
+    display: inline-block;
+    flex-shrink: 0;
+}
+.modalFooter p{
+    color: white;
+    font-size: 0;
+}
+.iconContainer{
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    display: inline-block;
+    vertical-align: bottom;
+    text-align: center;
+    border-radius: 7px 0px 0px 7px;
+    border: 1px solid gray;
+}
+.iconContainer img{
+    height: 25px;
+    width: 25px;
+    margin-top: 3px;
+}
+
+@media (max-width: 700px){
+    .loginmodal{
+        width: 100%;
+        background-color: #fff;
+        text-align: center;
+        box-shadow: none;
+        border: none;
+        height: 100vh;
+        border-radius: 0;
+    }
+    .loginsignup{
+        border-radius: 0;
+    }
+    .loginFormButton{
+        border-radius: 0;
+    }
+    .signupFormButton{
+        border-radius: 0;
+    }
+    .modalFooter{
+        height: 50px;
+    }
+    .modalFooter p{
+        font-size: 16px;
+    }
+    .frontpageFooter{
+        height: 0;
+    }
+}

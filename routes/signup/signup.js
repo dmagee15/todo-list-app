@@ -15,14 +15,13 @@ module.exports = (req, res) => {
       var newUser = new User();
       newUser.username = name;
       newUser.password = password;
-      newUser.schedules = [];
+      newUser.tasks = [];
       newUser.email = email;
       newUser.save(function(err){
         if(err) throw err;
         var payload = {id: newUser.id};
         var token = jwt.sign(payload, 'zse45tgb');
-        res.cookie('jwt',token);
-        res.json({message: "Authenticated", token: token, user:newUser.username});
+        res.json({message: "Authenticated", token: token, user:newUser});
       });
     }
     else{
