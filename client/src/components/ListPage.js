@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logOut } from './../actions/auth';
-import { Add, Remove } from './../actions/list';
+import { Add, Remove, Check, ClearAll, Initialize, Update } from './../actions/list';
+import { checkUser } from './../actions/auth';
+import { getDate } from './../utility/date';
+import { isEmpty } from './../utility/isEmpty';
+import { config } from './../utility/headerConfig';
 import './../css/ListPage.css';
 
 class ListPage extends Component{
     state = {
-        addinput: ""
+        addInput: ""
     }
     constructor(props){
         super(props);
+        if(!this.props.user){
+            this.props.dispatch(checkUser(config));
+        }
     }
+    componentDidUpdate(prevProps) {
+        let tasks = this.props.tasks.slice();
+        if(JSON.stringify(prevProps.tasks)!=JSON.stringify(tasks)){
+            this.props.dispatch(Update(tasks));
+        }
+      }
     logoutHandler = () => {
         this.props.dispatch(logOut());
     }
@@ -28,29 +41,50 @@ class ListPage extends Component{
     removeHandler = (index) => {
         this.props.dispatch(Remove(index));
     }
+    checkHandler = (event, index) => {
+        this.props.dispatch(Check(index));
+    }
+    clearAllHandler = () => {
+        this.props.dispatch(ClearAll());
+    }
     render(){
+
+        let numTasksToDo = 0;
+        let date = new Date();
+        let clearAllButton = null;
+        if(this.props.tasks.length>0){
+            clearAllButton = (
+                <div className="clearButtonContainer">
+                        <button className="clearAllButton" onClick={this.clearAllHandler}>Clear All</button>
+                    </div>
+            );
+        }
         let tasks = this.props.tasks.map((task, index) => {
+            if(!task.checked){
+                numTasksToDo++;
+            }
             return (
-                <div className="task">
+                <div className={"task "+((task.checked)?"inactive":"")} key={task.id}>
                         <div className="taskContentSection">
-                            <p className="taskContent">{task}</p>
+                            <p className="taskContent">{task.content}</p>
                         </div>
                         <div className="buttonSection">
                             <button className="deleteButton" onClick={()=>{this.removeHandler(index)}}>X</button>
-                            <input type="checkbox" />
+                            <input type="checkbox" onChange={(event)=>{this.checkHandler(event, index)}} checked={task.checked} />
                         </div>
                     </div>
             );
         });
+
         return (
             <div className="listPageContainer">
                 <div className="headerSection">
                     <div className="leftHeaderSection">
                         <div className="dateContainer">
-                            <h1 className="date">Wednesday, 1 June</h1>
+                            <h1 className="date">{getDate()}</h1>
                         </div>
                         <div className="numTasksContainer">
-                            <h2 className="numTasks">You have 3 tasks to do.</h2>
+                            <h2 className="numTasks">You have {numTasksToDo} tasks to do.</h2>
                         </div>
                     </div>
                     <div className="rightHeaderSection">
@@ -62,16 +96,9 @@ class ListPage extends Component{
                         <input type="text" placeholder="New task ..." onChange={this.changeInputHandler} value={this.state.addInput}/>
                         <button onClick={this.addHandler}>Add</button>
                     </div>
-                    <div className="task">
-                        <div className="taskContentSection">
-                            <p className="taskContent">Have to wsdfsdfssfdfdssdfsdf sdfsdfsdfssfdf sdfsdfsdfsd sdfsdfsdfs sdfsdfsdfdsash the dishes.</p>
-                        </div>
-                        <div className="buttonSection">
-                            <button className="deleteButton">X</button>
-                            <input type="checkbox" />
-                        </div>
-                    </div>
+
                     {tasks}
+                    {clearAllButton}
 
                 </div>
             </div>

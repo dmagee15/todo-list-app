@@ -11,16 +11,12 @@ class App extends Component {
 
   constructor(props){
     super(props);
-    const config = {
-      headers: {'Authorization': "bearer " + localStorage.getItem("token")}
-    };
-    this.props.dispatch(checkUser(config));
   }
   componentDidMount() {
   }
 
   render() {
-  let display = ((localStorage.getItem("user")) ? <ListPage /> : <LoginPage />);
+  let display = (localStorage.getItem("token")) ? <ListPage /> : <LoginPage />;
 
     return (
       <div className="App">

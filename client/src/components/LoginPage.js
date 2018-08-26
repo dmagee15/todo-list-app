@@ -11,6 +11,9 @@ class LoginPage extends Component {
     constructor(props){
         super(props);
     }
+    componentDidMount(){
+        localStorage.clear();
+    }
     loginButtonHandler = () => {
         this.setState({
             activeSection: 'login'
