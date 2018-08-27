@@ -19,7 +19,7 @@ module.exports = (req, res) => {
       newUser.email = email;
       newUser.save(function(err){
         if(err) throw err;
-        var payload = {id: newUser.id};
+        var payload = {id: newUser._id};
         var token = jwt.sign(payload, 'zse45tgb');
         res.json({message: "Authenticated", token: token, user:newUser});
       });

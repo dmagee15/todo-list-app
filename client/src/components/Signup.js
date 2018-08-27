@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { signUp } from './../actions/auth';
 import { connect } from 'react-redux';
 
@@ -13,13 +12,12 @@ class Signup extends Component{
         password: "",
         email: ""
     }
-    constructor(props){
-        super(props);
-    }
     submitSignup = (event) => {
         event.preventDefault();
-        this.props.dispatch(signUp(this.state.username, this.state.password, this.state.email));
-        this.setState({username: "",password: "",email:""});
+        if(this.state.username!==""&&this.state.password!==""&&this.state.email!==""){
+            this.props.dispatch(signUp(this.state.username, this.state.password, this.state.email));
+            this.setState({username: "",password: "",email:""});
+        }
     }
     handleUsernameChange = (event) => {
         this.setState({
@@ -42,19 +40,19 @@ class Signup extends Component{
                 <form onSubmit={(event)=>this.submitSignup(event)}>
                     <div>
                         <div className="iconContainer">
-                            <img src={usericon}/>
+                            <img src={usericon} alt=""/>
                         </div>
                         <input placeholder="Username" type="text" onChange={this.handleUsernameChange} value={this.state.username}/>
                     </div>
                     <div>
                         <div className="iconContainer">
-                            <img src={passicon}/>
+                            <img src={passicon} alt=""/>
                         </div>
                         <input placeholder="Password" type="text" onChange={this.handlePasswordChange} value={this.state.password}/>
                     </div>
                     <div>
                         <div className="iconContainer">
-                            <img src={emailicon}/>
+                            <img src={emailicon} alt=""/>
                         </div>
                         <input placeholder="Email" type="text" onChange={this.handleEmailChange} value={this.state.email}/>
                     </div>

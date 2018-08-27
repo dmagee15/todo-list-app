@@ -16,6 +16,7 @@ export function getDate(){
         case 9: result = "October "; break;
         case 10: result = "November "; break;
         case 11: result = "December "; break;
+        default: result = ""; break;
     }
     result = result+date.getDate()+", "+date.getFullYear();
     return result;

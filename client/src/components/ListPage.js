@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logOut } from './../actions/auth';
-import { Add, Remove, Check, ClearAll, Initialize, Update } from './../actions/list';
+import { Add, Remove, Check, ClearAll, Update, Initialize } from './../actions/list';
 import { checkUser } from './../actions/auth';
 import { getDate } from './../utility/date';
-import { isEmpty } from './../utility/isEmpty';
-import { config } from './../utility/headerConfig';
 import './../css/ListPage.css';
 
 class ListPage extends Component{
@@ -14,14 +12,17 @@ class ListPage extends Component{
     }
     constructor(props){
         super(props);
-        if(!this.props.user){
-            this.props.dispatch(checkUser(config));
+        if(!this.props.user&&this.props.loggedIn===false){
+            this.props.dispatch(checkUser());
+        }else{
+            this.props.dispatch(Initialize());
         }
     }
     componentDidUpdate(prevProps) {
         let tasks = this.props.tasks.slice();
-        if(JSON.stringify(prevProps.tasks)!=JSON.stringify(tasks)){
-            this.props.dispatch(Update(tasks));
+        let user = this.props.user;
+        if(JSON.stringify(prevProps.tasks)!==JSON.stringify(tasks)){
+            this.props.dispatch(Update(tasks, user));
         }
       }
     logoutHandler = () => {
@@ -50,7 +51,6 @@ class ListPage extends Component{
     render(){
 
         let numTasksToDo = 0;
-        let date = new Date();
         let clearAllButton = null;
         if(this.props.tasks.length>0){
             clearAllButton = (

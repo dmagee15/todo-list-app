@@ -8,9 +8,6 @@ class LoginPage extends Component {
     state = {
         activeSection: 'login'
     }
-    constructor(props){
-        super(props);
-    }
     componentDidMount(){
         localStorage.clear();
     }
@@ -26,7 +23,7 @@ class LoginPage extends Component {
     }
   render() {
 
-    const sectionContent = this.state.activeSection=='login' ? <Login /> : <Signup />;
+    const sectionContent = this.state.activeSection==='login' ? <Login /> : <Signup />;
 
     return (
         <div className="frontpageBackground">
@@ -35,8 +32,8 @@ class LoginPage extends Component {
                     <h1>To-Do List</h1>
                 </div>
                 <div className="loginsignup">
-                    <button onClick={this.loginButtonHandler} className={"loginFormButton "+(this.state.activeSection=='login'?"active":"")}>Login</button>
-                    <button onClick={this.signupButtonHandler} className={"signupFormButton "+(this.state.activeSection=='signup'?"active":"")}>Sign Up</button>
+                    <button onClick={this.loginButtonHandler} className={"loginFormButton "+(this.state.activeSection==='login'?"active":"")}>Login</button>
+                    <button onClick={this.signupButtonHandler} className={"signupFormButton "+(this.state.activeSection==='signup'?"active":"")}>Sign Up</button>
                 </div>
                 { sectionContent }
                 <div className="emptySpaceFrontpageModal">

@@ -1,4 +1,3 @@
-import { config } from './../utility/headerConfig';
 import axios from 'axios';
 
 export function Add(content){
@@ -39,17 +38,24 @@ export function Check(index){
     
 }
 
-export function Initialize(usertasks){
+export function Initialize(){
         return function(dispatch){
-            dispatch({
-                type: 'INITIALIZE',
-                payload: usertasks        
+            const config = {
+                headers: {'Authorization': "bearer " + localStorage.getItem("token")}
+            };
+            axios.get('/access',config)
+                .then(function(response){
+            }).catch(function(err){
+                console.log(err);
             });
         }
 }
 
-export function Update(tasks){
+export function Update(tasks, user){
     return function(dispatch){
+        const config = {
+            headers: {'Authorization': "bearer " + localStorage.getItem("token")}
+        };
         axios.post('/update', tasks, config)
         .then(function(response){
         }).catch(function(err){

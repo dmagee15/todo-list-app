@@ -10,13 +10,12 @@ class Login extends Component{
         username: "",
         password: ""
     }
-    constructor(props){
-        super(props);
-    }
     submitLogin = (event) => {
         event.preventDefault();
-        this.props.dispatch(logUp(this.state.username, this.state.password));
-        this.setState({username: "",password: "",email:""});
+        if(this.state.username!==""&&this.state.password!==""){
+            this.props.dispatch(logUp(this.state.username, this.state.password));
+            this.setState({username: "",password: "",email:""});
+        }
     }
     handleUsernameChange = (event) => {
         this.setState({
@@ -34,13 +33,13 @@ class Login extends Component{
                 <form onSubmit={(event)=>this.submitLogin(event)}>
                     <div>
                         <div className="iconContainer">
-                            <img src={usericon}/>
+                            <img src={usericon} alt=""/>
                         </div>
                         <input placeholder="Username" type="text" onChange={this.handleUsernameChange} value={this.state.username}/>
                     </div>
                     <div>
                         <div className="iconContainer">
-                            <img src={passicon}/>
+                            <img src={passicon} alt=""/>
                         </div>
                         <input placeholder="Password" type="text" onChange={this.handlePasswordChange} value={this.state.password}/>
                     </div>

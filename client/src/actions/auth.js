@@ -18,8 +18,11 @@ export function logOut(){
     };    
 }
 
-export function checkUser(config){
+export function checkUser(){
     return function(dispatch){
+        const config = {
+            headers: {'Authorization': "bearer " + localStorage.getItem("token")}
+        };
         axios.get('/access',config)
         .then(function(response){
             dispatch(logIn(response.data));

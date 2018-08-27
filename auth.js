@@ -1,12 +1,15 @@
 const User = require('./models/user');
+const jwt = require('jsonwebtoken');
 
-// User.find({}).remove().exec(); // For testing purposes
+
+//User.find({}).remove().exec(); // For testing purposes
 
 module.exports = function (passport, passportJWT, jwtOptions) {
     
     passport.use(new passportJWT.Strategy(jwtOptions, function(jwt_payload, next) {
 
       User.findOne({'_id':jwt_payload.id}, function(err,user){
+ 
         if(err) throw err;
         if (user) {
           next(null, user);
