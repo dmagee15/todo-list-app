@@ -30,11 +30,11 @@ app.use('/', routes);
 // To add for deployment
 app.use('/',express.static('public'));
 
-app.get('/',function(req,res){
-    res.sendFile(path.join(__dirname+'/index.html'));
+app.get('*',function(req,res){
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
 })
 
 
-const listener = app.listen(3001,()=>
+const listener = app.listen(process.env.PORT || 3001,()=>
     console.log("Server is listening on "+process.env.PORT || listener.address().port)
 )
