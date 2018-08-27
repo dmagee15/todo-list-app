@@ -9,6 +9,8 @@ const auth = require("./auth");
 const jwtOptions = require("./jwtconfig");
 const app = express();
 
+require('dotenv').load();
+
 app.use(bodyParser.urlencoded({
     extended: true
   }));
@@ -20,18 +22,18 @@ auth(passport, passportJWT, jwtOptions);
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb://localhost:27017/todo");
+mongoose.connect((process.env.MONGO_URL)?process.env.MONGO_URL:"mongodb://localhost:27017/todo");
 
 
 app.use('/', routes);
 
 // To add for deployment
-/*app.use('/',express.static('public'));
+app.use('/',express.static('public'));
 
 app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/index.html'));
 })
-*/
+
 
 const listener = app.listen(3001,()=>
     console.log("Server is listening on "+listener.address().port)
