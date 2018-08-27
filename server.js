@@ -28,13 +28,15 @@ mongoose.connect(process.env.MONGO_URL || "mongodb://localhost:27017/todo");
 app.use('/', routes);
 
 // To add for deployment
-app.use('/',express.static('public'));
+app.use('/', express.static(path.join(__dirname, 'client/build')));
 
 app.get('*',function(req,res){
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 })
 
+var port = process.env.PORT || 3001;
 
-const listener = app.listen(process.env.PORT || 3001,()=>
-    console.log("Server is listening on "+process.env.PORT || listener.address().port)
+const listener = app.listen(port,()=>{
+    console.log("Server is listening on "+port);
+    }
 )
