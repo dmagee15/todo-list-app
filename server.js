@@ -22,7 +22,7 @@ auth(passport, passportJWT, jwtOptions);
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect((process.env.MONGO_URL)?process.env.MONGO_URL:"mongodb://localhost:27017/todo");
+mongoose.connect(process.env.MONGO_URL || "mongodb://localhost:27017/todo");
 
 
 app.use('/', routes);
@@ -36,5 +36,5 @@ app.get('/',function(req,res){
 
 
 const listener = app.listen(3001,()=>
-    console.log("Server is listening on "+listener.address().port)
+    console.log("Server is listening on "+process.env.PORT || listener.address().port)
 )
